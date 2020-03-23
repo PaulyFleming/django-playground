@@ -78,8 +78,12 @@ WSGI_APPLICATION = "gettingstarted.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE" : "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3")
+        "ENGINE" : "django.db.backends.postgresql_psycopg2",
+        "NAME": 'd2preired81jlb',
+        "USER": 'hzflxillgfghgx',
+        "PASSWORD": 'a105b0a2d2c39a7763e5ed11c0efe6fc97a7a2f2f0caa0d7d220bb63c12c801b',
+        "HOST": 'ec2-18-209-187-54.compute-1.amazonaws.com',
+        "PORT": '5432',
     }
 }
 
@@ -117,3 +121,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = "/static/"
 
 django_heroku.settings(locals())
+
+

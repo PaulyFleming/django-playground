@@ -83,11 +83,11 @@ if development:
     DATABASES = {
         "default": {
             "ENGINE" : "django.db.backends.postgresql_psycopg2",
-            "NAME": 'mydb', #'d2preired81jlb',
-            "USER": 'paul', # hzflxillgfghgx',
-            "PASSWORD": 'mypass', #'a105b0a2d2c39a7763e5ed11c0efe6fc97a7a2f2f0caa0d7d220bb63c12c801b',
-            "HOST":  'localhost',# 'ec2-18-209-187-54.compute-1.amazonaws.com',
-            "PORT": '', #'5432',
+            "NAME": os.getenv('NAME'), 
+            "USER": os.getenv('USER'), 
+            "PASSWORD": os.getenv('PASSWORD'),
+            "HOST":  os.getenv('HOST'),
+            "PORT": os.getenv('PORT'), 
         }
     }
 else:

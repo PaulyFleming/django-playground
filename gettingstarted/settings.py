@@ -91,7 +91,7 @@ if development:
         }
     }
 else:
-    DATABASES['default'] = dj_database_url.parse(env.db(), conn_max_age=30)
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

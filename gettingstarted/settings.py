@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import django_heroku
+import dj_database_url
+
+if os.environ.get('DEVELOPMENT'):
+    development = True
+else:
+    development = False
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,12 +28,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "CHANGE_ME!!!! (P.S. the SECRET_KEY environment variable will be used, if set, instead)."
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', os.environ.get('HOSTNAME')]
 
 
 # Application definition
@@ -40,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "hello",
+    "polls",
 ]
 
 MIDDLEWARE = [
@@ -72,20 +79,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "gettingstarted.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE" : "django.db.backends.postgresql_psycopg2",
-        "NAME": 'd2preired81jlb',
-        "USER": 'hzflxillgfghgx',
-        "PASSWORD": 'a105b0a2d2c39a7763e5ed11c0efe6fc97a7a2f2f0caa0d7d220bb63c12c801b',
-        "HOST": 'ec2-18-209-187-54.compute-1.amazonaws.com',
-        "PORT": '5432',
+if development:  
+    DATABASES = {
+        "default": {
+            "ENGINE" : "django.db.backends.postgresql_psycopg2",
+            "NAME": 'mydb', #'d2preired81jlb',
+            "USER": 'paul', # hzflxillgfghgx',
+            "PASSWORD": 'mypass', #'a105b0a2d2c39a7763e5ed11c0efe6fc97a7a2f2f0caa0d7d220bb63c12c801b',
+            "HOST":  'localhost',# 'ec2-18-209-187-54.compute-1.amazonaws.com',
+            "PORT": '', #'5432',
+        }
     }
-}
+else:
+    DATABASES['default'] = dj_database_url.parse(env.db(), conn_max_age=30)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
